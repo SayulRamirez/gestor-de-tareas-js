@@ -4,9 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear cuenta nueva</title>
-    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/view/base.css">
+    <link rel="stylesheet" href="../css/view/register.css">
 </head>
 <body>
-
+    <header class="header">
+        <h1 class="header-title">Crear una cuenta nueva.</h1>
+        <p class="header-link">¿Ya estas registrado? <a href="../index.html">Accede aquí.</a></p>
+    </header>
+    <main class="main">
+        <form action="" method="post">
+            <div class="inputs">
+                <div class="data">
+                    <div class="conteiner-input">
+                        <label class="label" for="name">Escribe un nombre:</label>
+                        <input class="input" type="text" name="name" id="name" placeholder="Nombre" required>
+                    </div>
+                    <div class="conteiner-input">
+                        <label class="label" for="lastname">Escribe un apellido:</label>
+                        <input class="input" type="text" name="lastname" id="lastname" placeholder="Apellido" required>
+                    </div>
+                    <div class="conteiner-input">
+                        <label class="label" for="maternalSurname">Escribe un apellido materno:</label>
+                        <input class="input" type="text" name="maternalSurname" placeholder="Apellido materno" id="maternalSurname">
+                    </div>
+                    <div class="conteiner-input">
+                        <label class="label" for="phone">Escribe un teléfono:</label>
+                        <input class="input" type="number" name="phone" id="phone" placeholder="Teléfono" required>
+                    </div>
+                </div>
+                <div class="data">
+                    <div class="conteiner-input">
+                        <label class="label" for="email">Escribe un correo:</label>
+                        <input class="input" type="email" name="email" id="email" placeholder="Correo" required>
+                    </div>
+                    <div class="conteiner-input">
+                        <label class="label" for="password">Escribe una contraseña:</label>
+                        <input class="input" type="password" name="password" id="password" placeholder="Contraseña" required>
+                    </div>
+                </div>
+            </div>
+            <div class="send-form">
+                <input class="input-button" type="submit" value="Crear cuenta">
+            </div>
+        </form>
+    </main>
 </body>
 </html>
