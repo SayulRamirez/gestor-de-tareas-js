@@ -3,6 +3,7 @@
 html {
     font-size: 10px;
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 * {
@@ -15,6 +16,8 @@ html {
     font-family: "Roboto", sans-serif;
     font-weight: 500;
     font-style: normal;
+
+    outline: none;
 }
 
 :root {
@@ -23,9 +26,11 @@ html {
 
     --color-primario: #7f39fb;
     --color-secundario: #d3e1dc;
+    --color-terciario: #5d11e0;
     --color-texto-primario: #222222;
     --color-texto-secundario: #2b2b2b;
     --color-blanco: #f2e7ff;
+    --color-petroleo: #073145;
 
     --font-size-14: clamp(1rem, 1vw, 1.4rem);
     --font-size-17: clamp(1.2rem, 1.1vw, 1.7rem);
