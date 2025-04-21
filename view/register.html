@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear cuenta nueva</title>
     <link rel="stylesheet" href="../css/view/base.css">
     <link rel="stylesheet" href="../css/view/register.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/validations.js"></script>
+    <script src="../js/service/auth-service.js"></script>
 </head>
+
 <body>
     <header class="header">
         <h1 class="header-title">Crear una cuenta nueva.</h1>
         <p class="header-link">¿Ya estas registrado? <a href="../index.html">Accede aquí.</a></p>
     </header>
     <main class="main">
-        <form action="" method="post">
+        <form id="formRegister">
             <div class="inputs">
                 <div class="data">
                     <div class="conteiner-input">
@@ -50,4 +55,5 @@
         </form>
     </main>
 </body>
+<script src="../js/controller/register-user.js"></script>
 </html>
