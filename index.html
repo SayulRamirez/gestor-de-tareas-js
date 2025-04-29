@@ -6,6 +6,7 @@
     <title>Gestor de tareas</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="js/validations.js"></script>
+    <script src="js/service/auth-service.js"></script>
     <link rel="stylesheet" href="css/view/base.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
@@ -33,27 +34,5 @@
         </section>
     </main>
 </body>
-<script>
-    document.getElementById('formLogin').addEventListener('submit', async function (event) {
-        event.preventDefault();
-
-        const credentials = {
-            email: document.getElementById('email').value.trim(),
-            password: document.getElementById('password').value.trim(),
-        }
-
-        if(!containText(credentials)) {
-            alert('Debes de llenar todos los campos.');
-            return;
-        }
-
-        if(!emailValid(credentials.email)) {
-            alert('El formato del email no es valido, verificalo.');
-            return;
-        }
-
-        console.log(credentials.email);
-        console.log(credentials.password);
-    })
-</script>
+<script src="js/controller/login-user.js"></script>
 </html>
