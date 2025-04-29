@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de tareas</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/validations.js"></script>
     <link rel="stylesheet" href="css/view/base.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
@@ -13,7 +14,7 @@
         <h1 class="main-title">Bienvenido al gestor de tareas</h1>
         <section class="conteiner-login">
             <h2 class="login-title">Login</h2>
-            <form class="form" action="">
+            <form class="form" id="formLogin" action="">
                 <div class="conteiner-input">
                     <label class="label" for="email">Email:</label>
                     <input class="input" type="email" name="email" id="email" placeholder="Email" required>
@@ -32,4 +33,27 @@
         </section>
     </main>
 </body>
+<script>
+    document.getElementById('formLogin').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const credentials = {
+            email: document.getElementById('email').value.trim(),
+            password: document.getElementById('password').value.trim(),
+        }
+
+        if(!containText(credentials)) {
+            alert('Debes de llenar todos los campos.');
+            return;
+        }
+
+        if(!emailValid(credentials.email)) {
+            alert('El formato del email no es valido, verificalo.');
+            return;
+        }
+
+        console.log(credentials.email);
+        console.log(credentials.password);
+    })
+</script>
 </html>
