@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+html {
+    font-size: 10px;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+
+    outline: none;
+}
+
+:root {
+    --font-robot: "Roboto", sans-serif;
+    --font-poppins: "Poppins", sans-serif;
+
+    --color-primario: #7f39fb;
+    --color-secundario: #d3e1dc;
+    --color-terciario: #5d11e0;
+    --color-texto-primario: #222222;
+    --color-texto-secundario: #2b2b2b;
+    --color-blanco: #f2e7ff;
+    --color-petroleo: #073145;
+    --color-mostaza: #e89400;
+
+    --font-size-14: clamp(1rem, 1vw, 1.4rem);
+    --font-size-17: clamp(1.2rem, 1.1vw, 1.7rem);
+    --font-size-20: clamp(1.3rem, 1.2vw, 2rem);
+    --font-size-22: clamp(1.4rem, 1.3vw, 2.2rem);
+    --font-size-26: clamp(1.6rem, 1.4vw, 2.6rem);
+    --font-size-28: clamp(1.7rem, 1.5vw, 2.8rem);
+    --font-size-30: clamp(1.8rem, 1.6vw, 3rem);
+    --font-size-32: clamp(2rem, 1.7vw, 3.2rem);
+    --font-size-34: clamp(2.2rem, 1.8vw, 3.4rem);
+    --font-size-39: clamp(2.3rem, 2vw, 3.9rem);
+    --font-size-46: clamp(2.6rem, 2.2vw, 4.6rem);
+    --font-size-55: clamp(2.8rem, 2.5vw, 5.5rem);
+    --font-size-60: clamp(3.5rem, 3vw, 6rem);
+    --font-size-62: clamp(4rem, 3.2vw, 6.2rem);
+}
+
+.body {
+    background-color: var(--color-blanco);
+}
