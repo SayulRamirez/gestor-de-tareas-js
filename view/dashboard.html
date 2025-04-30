@@ -1,11 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <title>Gestor</title>
+    <link rel="stylesheet" href="../css/base/base.css">
+    <link rel="stylesheet" href="../css/base/menu.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    
+    <header>
+        <div class="topnav" id="myTopnav">
+            <a href="#home" class="active">Home</a>
+            <a href="#contact">Crear Proyecto</a>
+            <a href="#about">Tareas</a>
+            <a href="#salir">Salir</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+
+        <script>
+            function myFunction() {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                    x.className += " responsive";
+                } else {
+                    x.className = "topnav";
+                }
+            }
+        </script>
+    </header>
+    <main>
+        <div class="filter">
+            <button class="button-filter selected">Todos</button>
+            <button class="button-filter">Pendientes</button>
+            <button class="button-filter">En progreso</button>
+            <button class="button-filter">Completas</button>
+        </div>
+        <section class="projects">
+            <article class="project" data-status="PENDING" data-id="1">
+                <div class="project-desc">
+                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
+                    <p class="project-status">Estatus: Pendiente</p>
+                </div>
+                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
+            </article>
+            <article class="project" data-status="PENDING" data-id="2">
+                <div class="project-desc">
+                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
+                    <p class="project-status">Estatus: Pendiente</p>
+                </div>
+                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
+            </article>
+            <article class="project" data-status="IN_PROGRES" data-id="3">
+                <div class="project-desc">
+                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
+                    <p class="project-status">Estatus: En progreso</p>
+                </div>
+                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
+            </article>
+            <article class="project" data-status="COMPLETE" data-id="4">
+                <div class="project-desc">
+                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
+                    <p class="project-status">Estatus: Completo</p>
+                </div>
+                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
+            </article>
+            <article class="project" data-status="IN_PROGRES" data-id="5">
+                <div class="project-desc">
+                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
+                    <p class="project-status">Estatus: En progreso</p>
+                </div>
+                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
+            </article>
+            <article class="project" data-status="PENDING" data-id="6">
+                <div class="project-desc">
+                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
+                    <p class="project-status">Estatus: Pendiente</p>
+                </div>
+                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
+            </article>
+            <article class="project" data-status="COMPLETE" data-id="7">
+                <div class="project-desc">
+                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
+                    <p class="project-status">Estatus: Completo</p>
+                </div>
+                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
+            </article>
+            <article class="project" data-status="IN_PROGRES" data-id="8">
+                <div class="project-desc">
+                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
+                    <p class="project-status">Estatus: En progreso</p>
+                </div>
+                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
+            </article>
+        </section>
+    </main>
+    <script>
+        const buttons = document.querySelectorAll('.button-filter');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', (event) => {
+
+                buttons.forEach(b => {
+                    // if (event.target !== b) {
+                        b.classList.remove('selected');
+                        // }
+                    });
+
+                event.target.classList.add('selected');
+            });
+        });
+    </script>
 </body>
 </html>
