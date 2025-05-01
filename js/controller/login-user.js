@@ -30,6 +30,6 @@ document.getElementById('formLogin').addEventListener('submit', async function (
 
     if(response.code === 200) {
         localStorage.setItem("token", response.data.token);
-        window.location.href = "/view/principal.html";
+        window.location.href = "/view/dashboard.html";
     }
 })
