@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <title>Gestor</title>
     <link rel="stylesheet" href="../css/base/base.css">
     <link rel="stylesheet" href="../css/base/menu.css">
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/jwt.js"></script>
+    <script src="../js/language.js"></script>
+    <script src="../js/service/project-service.js"></script>
 </head>
 <body>
     <header>
         <div class="topnav" id="myTopnav">
-            <a href="#home" class="active">Home</a>
+            <a href="dashboard.html" class="active">Home</a>
             <a href="#contact">Crear Proyecto</a>
             <a href="#about">Tareas</a>
             <a href="#salir">Salir</a>
@@ -42,64 +45,7 @@
             <button class="button-filter">En progreso</button>
             <button class="button-filter">Completas</button>
         </div>
-        <section class="projects">
-            <article class="project" data-status="PENDING" data-id="1">
-                <div class="project-desc">
-                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
-                    <p class="project-status">Estatus: Pendiente</p>
-                </div>
-                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
-            </article>
-            <article class="project" data-status="PENDING" data-id="2">
-                <div class="project-desc">
-                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
-                    <p class="project-status">Estatus: Pendiente</p>
-                </div>
-                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
-            </article>
-            <article class="project" data-status="IN_PROGRES" data-id="3">
-                <div class="project-desc">
-                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
-                    <p class="project-status">Estatus: En progreso</p>
-                </div>
-                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
-            </article>
-            <article class="project" data-status="COMPLETE" data-id="4">
-                <div class="project-desc">
-                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
-                    <p class="project-status">Estatus: Completo</p>
-                </div>
-                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
-            </article>
-            <article class="project" data-status="IN_PROGRES" data-id="5">
-                <div class="project-desc">
-                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
-                    <p class="project-status">Estatus: En progreso</p>
-                </div>
-                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
-            </article>
-            <article class="project" data-status="PENDING" data-id="6">
-                <div class="project-desc">
-                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
-                    <p class="project-status">Estatus: Pendiente</p>
-                </div>
-                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
-            </article>
-            <article class="project" data-status="COMPLETE" data-id="7">
-                <div class="project-desc">
-                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
-                    <p class="project-status">Estatus: Completo</p>
-                </div>
-                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
-            </article>
-            <article class="project" data-status="IN_PROGRES" data-id="8">
-                <div class="project-desc">
-                    <h2 class="project-title">Proyecto  de gestor de tareas</h2>
-                    <p class="project-status">Estatus: En progreso</p>
-                </div>
-                <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
-            </article>
-        </section>
+        <section id="section-projects" class="projects"></section>
     </main>
     <script>
         const buttons = document.querySelectorAll('.button-filter');
@@ -118,4 +64,43 @@
         });
     </script>
 </body>
+
+<script>
+
+    if ( !isTokenValid() ) {
+        alert("El token a expirado o es invalidio.\nEs necesario volver a iniciar sesión.");
+        localStorage.removeItem("token");
+        window.location.href = "../index.html";
+    }
+
+    getAllProjectsByUser().then( response => {
+
+        response.data.forEach(project => {
+            
+            let template = templateProject.content.cloneNode(true);
+
+            template.querySelector('.project').setAttribute('data-status', project.status);
+            template.querySelector('.project').setAttribute('data-id', project.id);
+
+            let title = template.querySelector('.project-title');
+            let status = template.querySelector('.project-status');
+
+            title.innerText = project.title;
+            status.innerText = statusToSpanish(project.status);
+
+            document.getElementById('section-projects').appendChild(template);
+        });
+    });
+        
+</script>
+
+<template id="templateProject">
+    <article class="project" data-status="" data-id="">
+        <div class="project-desc">
+            <h2 class="project-title"></h2>
+            <p class="project-status"></p>
+        </div>
+        <img src="../img/default-project.jpeg" alt="Trabajando en un proyecto">
+    </article>
+</template>
 </html>
