@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="../css/base/base.css">
     <link rel="stylesheet" href="../css/base/menu.css">
     <link rel="stylesheet" href="../css/dashboard.css">
-    <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/jwt.js"></script>
     <script src="../js/language.js"></script>
@@ -17,58 +16,41 @@
 </head>
 <body>
     <header>
-        <div class="topnav" id="myTopnav">
+        <nav class="topnav" id="myTopnav">
             <a href="dashboard.html" class="active">Home</a>
             <a href="#contact">Crear Proyecto</a>
             <a href="#about">Tareas</a>
             <a href="#salir">Salir</a>
-            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                <i class="fa fa-bars"></i>
-            </a>
-        </div>
-
-        <script>
-            function myFunction() {
-                var x = document.getElementById("myTopnav");
-                if (x.className === "topnav") {
-                    x.className += " responsive";
-                } else {
-                    x.className = "topnav";
-                }
-            }
-        </script>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        </nav>
     </header>
     <main>
         <div class="filter">
-            <button class="button-filter selected">Todos</button>
-            <button class="button-filter">Pendientes</button>
-            <button class="button-filter">En progreso</button>
-            <button class="button-filter">Completas</button>
+            <button id="ALL" class="button-filter selected">Todos</button>
+            <button id="PENDING" class="button-filter">Pendientes</button>
+            <button id="IN_PROGRESS" class="button-filter">En progreso</button>
+            <button id="COMPLETE" class="button-filter">Completas</button>
         </div>
         <section id="section-projects" class="projects"></section>
     </main>
     <script>
-        const buttons = document.querySelectorAll('.button-filter');
-
-        buttons.forEach(button => {
-            button.addEventListener('click', (event) => {
-
-                buttons.forEach(b => {
-                    // if (event.target !== b) {
-                        b.classList.remove('selected');
-                        // }
-                    });
-
-                event.target.classList.add('selected');
-            });
-        });
+        // Script para el menu
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
     </script>
+    <script src="../js/filter-projects.js" defer></script>
 </body>
 
 <script>
 
     if ( !isTokenValid() ) {
-        alert("El token a expirado o es invalidio.\nEs necesario volver a iniciar sesión.");
+        alert("El token ha expirado o es inválido.\nEs necesario volver a iniciar sesión.");
         localStorage.removeItem("token");
         window.location.href = "../index.html";
     }
