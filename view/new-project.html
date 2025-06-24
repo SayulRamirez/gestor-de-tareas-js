@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo proyecto</title>
+    <link rel="stylesheet" href="../css/base/base.css">
+    <link rel="stylesheet" href="../css/base/menu.css">
+    <link rel="stylesheet" href="../css/new-project.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/jwt.js"></script>
+    <script src="../js/language.js"></script>
+    <script src="../js/validations.js"></script>
+    <script src="../js/service/project-service.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="topnav" id="myTopnav">
+            <a href="dashboard.html" class="active">Home</a>
+            <a href="#contact">Crear Proyecto</a>
+            <a href="#about">Tareas</a>
+            <a href="#salir">Salir</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        </nav>
+    </header>
+    <main class="main">
+        <form class="form" action="">
+            <div class="inputs">
+                <label class="label" for="title">Título:</label>
+                <input class="input" type="text" name="title" id="title" placeholder="Titulo">
+            </div>
+            <div class="inputs">
+                <label class="label" for="description">Descripción:</label>
+                <textarea class="input" name="description" id="description" rows="4" cols="50" maxlength="255" placeholder="Escribe la descripción del proyecto"></textarea>
+                <p class="character-counter"><span id="current-count">0</span>/<span id="max-limit">255</span></p>
+            </div>
+            <div class="inputs">
+                <label class="label" for="date">Fecha de termino estimada:</label>
+                <input class="input" type="date" name="date" id="date">
+            </div>
+            <div class="button-conteiner">
+                <input id="createProject" class="button-send" type="submit" value="Crear">
+            </div>
+        </form>
+        <img class="main-img" src="../img/new-project.jpeg" alt="Creación de proyecto">
+        <img class="second-img" src="../img/new-project-ch.jpg" alt="Creación de proyecto">
+    </main>
+    <script src="../js/controller/new-project.js"></script>
+</body>
+</html>

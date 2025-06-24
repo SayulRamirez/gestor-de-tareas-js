@@ -17,9 +17,9 @@ document.getElementById("formRegister").addEventListener("submit", async functio
 
     let errores = validSize(
         { nombre: "nombre", valor: user.first_name },
-        { nombre: "apellido", valor: user.last_name },
-        { nombre: "materno", valor: user.maternal_surname },
-        { nombre: "telefono", valor: user.phone_number }
+        { apellido: "apellido", valor: user.last_name },
+        { matero: "materno", valor: user.maternal_surname },
+        { telefono: "telefono", valor: user.phone_number }
     );
     
     if (errores.length > 0) {

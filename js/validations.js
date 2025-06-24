@@ -3,6 +3,8 @@ const limit = {
     apellido: { max: 30, min: 1 },
     matero: { max: 30, min: 0 },
     telefono: { max: 15, min: 10 },
+    titulo: { max:150, min: 1 },
+    descripcion: { max: 255, min: 1},
 };
 
 function validSize(...campos) {

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/menu.js"></script>
     <script src="../js/jwt.js"></script>
     <script src="../js/language.js"></script>
     <script src="../js/service/project-service.js"></script>
@@ -18,7 +19,7 @@
     <header>
         <nav class="topnav" id="myTopnav">
             <a href="dashboard.html" class="active">Home</a>
-            <a href="#contact">Crear Proyecto</a>
+            <a href="new-project.html">Crear Proyecto</a>
             <a href="#about">Tareas</a>
             <a href="#salir">Salir</a>
             <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
@@ -33,17 +34,6 @@
         </div>
         <section id="section-projects" class="projects"></section>
     </main>
-    <script>
-        // Script para el menu
-        function myFunction() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
-            }
-        }
-    </script>
     <script src="../js/filter-projects.js" defer></script>
 </body>
 
