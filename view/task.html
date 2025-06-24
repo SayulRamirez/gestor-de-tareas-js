@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor</title>
+    <link rel="stylesheet" href="../css/base/base.css">
+    <link rel="stylesheet" href="../css/base/menu.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/jwt.js"></script>
+    <script src="../js/language.js"></script>
+    <script src="../js/service/task-service.js"></script>
+</head>
+
+<body>
+    <style>
+        .main {
+            padding: 5rem 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-radius: 0.5rem;
+            overflow: hidden;
+            font-size: var(--font-size-17);
+            color: var(--color-texto-primario);
+        }
+
+        thead {
+            background-color: var(--color-primario);
+            color: var(--color-blanco);
+            text-transform: uppercase;
+        }
+
+        th, td {
+            padding: 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-secundario);
+        }
+
+        tr:hover {
+            background-color: #f9f3ff;
+            transition: background-color 0.3s ease;
+        }
+
+        select {
+            padding: 0.6rem;
+            font-size: var(--font-size-14);
+            border: 1px solid var(--color-secundario);
+            border-radius: 0.4rem;
+            background-color: white;
+            color: var(--color-texto-secundario);
+        }
+
+        .fa {
+            color: var(--color-primario);
+            cursor: pointer;
+            transition: color 0.2s ease;
+            font-size: 1.8rem;
+        }
+
+        .fa-pencil:hover {
+            color: var(--color-terciario);
+        }
+    </style>
+    <header>
+        <nav class="topnav" id="myTopnav">
+            <a href="dashboard.html" class="active">Home</a>
+            <a href="new-project.html">Crear Proyecto</a>
+            <a href="task.html">Tareas</a>
+            <a href="../index.html">Salir</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        </nav>
+    </header>
+    <main class="main">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Descripción</th>
+                    <th>Entrega estimada</th>
+                    <th>Prioridad</th>
+                    <th>Estatus</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="table"></tbody>
+    </main>
+
+    <script>
+        if ( !isTokenValid() ) {
+            alert("El token ha expirado o es inválido.\nEs necesario volver a iniciar sesión.");
+            localStorage.removeItem("token");
+            window.location.href = "../index.html";
+        }
+
+        const statusT = ["PENDING", "IN_PROGRESS", "COMPLETE"]
+
+        const visibleFields = ["title", "description", "estimate_delivery", "priority"];
+
+        const table = document.getElementById('table');
+
+        getAllByUser().then( response => {
+
+            const tasks = response.data.map(task => {
+                return {
+                    id: task.id,
+                    title: task.title,
+                    description: task.description,
+                    estimate_delivery: task.estimate_delivery,
+                    priority: task.priority,
+                    status: task.status,
+                };
+            });
+
+            tasks.forEach(task => {
+                console.log(task);
+
+                const row = document.createElement('tr');
+
+                visibleFields.forEach(key => {
+                    const column = document.createElement('td');
+                    column.innerHTML = task[key];
+                    row.appendChild(column);
+                });
+
+                const select = document.createElement('select');
+                for(i = 0; i < 3; i++) {
+                    const option = document.createElement('option');
+                    option.value = statusT[i];
+                    option.textContent = statusToSpanish(statusT[i]);
+                    select.appendChild(option);
+                }
+
+                select.value = task.status;
+                const columnSelect = document.createElement('td');
+                columnSelect.appendChild(select);
+                row.appendChild(columnSelect);
+                
+                const icon = document.createElement('i');
+                icon.classList.add('fa', 'fa-pencil');
+                icon.setAttribute('data-id', task.id);
+                icon.style.cursor = 'pointer';
+                icon.addEventListener('click', async () => {
+                    await updateTask(parseInt(icon.getAttribute('data-id')), select.value);
+                })
+                
+                const columnIcon = document.createElement('td');
+                columnIcon.appendChild(icon);
+                row.appendChild(columnIcon);
+
+                table.appendChild(row);
+            });
+        });
+    </script>
+</body>
+
+</html>
