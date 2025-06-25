@@ -1,4 +1,4 @@
-const base = 'http://127.0.0.1:8080/api/v1/tasks';
+const baseTask = 'http://127.0.0.1:8080/api/v1/tasks';
 
 async function getAllByUser() {
 
@@ -8,7 +8,7 @@ async function getAllByUser() {
 
     try {
 
-        const response = await axios.get(`${base}/all/${id}`, {
+        const response = await axios.get(`${baseTask}/all/${id}`, {
             headers: {
                 Authorization: 'Bearer ' + token,
             }
@@ -30,7 +30,29 @@ async function updateTask(id, status) {
     const token = getToken();
 
     try {
-        const response = await axios.put(base, {id, status}, {
+        const response = await axios.put(baseTask, {id, status}, {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            }
+        });
+
+        return { code: response.status, data: response.data };
+    } catch(error) {
+        if (error.response) {
+            return {
+                message: error.response.data.message,
+                code: error.response.status,
+            }
+        }
+        return { message: "No se pudo establecer la conexión con el servidor", code: error };
+    }
+}
+
+async function saveTask(task) {
+    const token = getToken();
+    
+    try {
+        const response = await axios.post(baseTask, task, {
             headers: {
                 Authorization: 'Bearer ' + token,
             }

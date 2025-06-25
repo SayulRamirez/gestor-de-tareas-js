@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor</title>
+    <link rel="stylesheet" href="../css/base/base.css">
+    <link rel="stylesheet" href="../css/base/menu.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../js/jwt.js"></script>
+    <script src="../js/validations.js"></script>
+    <script src="../js/language.js"></script>
+    <script src="../js/service/project-service.js"></script>
+    <script src="../js/service/task-service.js"></script>
+</head>
+
+<body>
+    <script>
+        if (!isTokenValid()) {
+            alert("El token ha expirado o es inválido.\nEs necesario volver a iniciar sesión.");
+            localStorage.removeItem("token");
+            window.location.href = "../index.html";
+        }
+
+    </script>
+    <header>
+        <nav class="topnav" id="myTopnav">
+            <a href="dashboard.html" class="active">Home</a>
+            <a href="new-project.html">Crear Proyecto</a>
+            <a href="task.html">Tareas</a>
+            <a href="../index.html">Salir</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        </nav>
+    </header>
+    <style>
+        main {
+            padding: 5rem 2rem;
+        }
+
+        .info {
+            margin-bottom: 2.5rem;
+            font-family: var(--font-poppins);
+            font-size: var(--font-size-20);
+            color: var(--color-texto-primario);
+        }
+
+        .info p {
+            margin-bottom: 1rem;
+        }
+
+        form label,
+        .task label {
+            font-size: var(--font-size-20);
+            font-weight: 500;
+            color: var(--color-texto-primario);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        select,
+        textarea,
+        input[type="text"],
+        input[type="email"],
+        input[type="date"] {
+            font-family: var(--font-poppins);
+            font-size: var(--font-size-20);
+            color: var(--color-petroleo);
+            padding: 0.4rem 1rem;
+            border: none;
+            border-bottom: 1px solid var(--color-texto-secundario);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-bottom: 2px solid var(--color-primario);
+            outline: none;
+        }
+
+        .task {
+            margin-top: 3rem;
+        }
+
+        .input {
+            margin-bottom: 2rem;
+        }
+
+        .buttons,
+        .task button {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-size: var(--font-size-20);
+            padding: 0.5rem 1.5rem;
+            border: none;
+            color: var(--color-blanco);
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #btnUpdate {
+            background-color: rgb(190, 151, 22);
+            /* Azul suave: edición */
+        }
+
+        #btnUpdate:hover {
+            background-color: #e0aa00;
+            /* Azul fuerte */
+        }
+
+        #btnReport {
+            background-color: #5ae000;
+            /* Amarillo o dorado: destaca acción especial */
+        }
+
+        #btnReport:hover {
+            background-color: #3e9206;
+            /* Un tono oro más oscuro */
+        }
+
+        #btnDelete {
+            background-color: #e74c3c;
+            /* Rojo: acción destructiva */
+        }
+
+        #btnDelete:hover {
+            background-color: #c0392b;
+            /* Rojo más profundo */
+        }
+
+        #createTask {
+            background-color: #e74c3c;
+            /* Rojo: acción destructiva */
+        }
+
+        #createTask:hover {
+            background-color: #c0392b;
+            /* Rojo más profundo */
+        }
+    </style>
+    <main>
+        <div class="info">
+            <p>Titulo: <span id="title"></span></p>
+            <p>Descripción: <span id="description"></span></p>
+            <p>Entrega estimada: <span id="estimatedCompletion"></span></p>
+        </div>
+        <form action="">
+            <label for="status">Estatus:</label>
+            <select name="status" id="status">
+                <option value="PENDING">Pendiente</option>
+                <option value="IN_PROGRESS">En progreso</option>
+                <option value="COMPLETE">Completo</option>
+            </select>
+            <div class="buttons">
+                <button type="button" id="btnUpdate">Actualizar</button>
+                <button type="button" id="btnReport">Generar reporte</button>
+                <button type="button" id="btnDelete">Eliminar</button>
+            </div>
+        </form>
+        <div class="task">
+            <form action="">
+                <div class="input">
+                    <label for="titleTask">Titulo:</label>
+                    <input type="text" name="titleTask" id="titleTask" placeholder="Titulo de la tarea">
+                </div>
+                <div class="input">
+                    <label for="descTask">Descripción:</label>
+                    <textarea name="descTask" id="descTask" placeholder="Descripción de la tarea"></textarea>
+                </div>
+                <div class="input">
+                    <label for="collaborator">Colaborador:</label>
+                    <input type="email" name="collaborator" id="collaborator" placeholder="Colaborador responsable">
+                </div>
+                <div class="input">
+                    <label for="delivery">Entrega estimada:</label>
+                    <input type="date" name="delivery" id="delivery">
+                </div>
+                <div class="input">
+                    <label for="priority">¨Prioridad</label>
+                    <select name="priority" id="priority" value="LOW">
+                        <option value="LOW">Baja</option>
+                        <option value="MEDIUM">Media</option>
+                        <option value="HIGH">Alta</option>
+                    </select>
+                </div>
+                <button id="createTask" type="button">Asignar tarea</button>
+            </form>
+        </div>
+    </main>
+    <script>
+
+        const title = document.getElementById('title');
+        const description = document.getElementById('description');
+        const estimatedCompletion = document.getElementById('estimatedCompletion');
+        const status = document.getElementById('status');
+
+        const btnUpdate = document.getElementById('btnUpdate');
+        const btnReport = document.getElementById('btnReport');
+        const btnDelete = document.getElementById('btnDelete');
+
+        const params = new URLSearchParams(window.location.search);
+        const projectId = parseInt(params.get('id'), 10);
+
+        getProject(projectId).then(response => {
+            const project = response.data;
+
+            title.textContent = project.title;
+            description.textContent = project.description;
+            estimatedCompletion.textContent = project.estimated_completion;
+            status.value = project.status;
+
+            btnUpdate.addEventListener('click', async () => {
+                const response = await updateProyect(projectId, status.value);
+
+                if (!response || response.code !== 200) {
+                    alert(response.message, ': ', response.code);
+                    return;
+                }
+
+                alert('Se actualizo correctamente');
+            });
+
+            btnDelete.addEventListener('click', async () => {
+                const response = await deleteProyect(projectId);
+
+                if (!response || response.code !== 404) {
+                    alert(response.message, ': ', response.code);
+                    return;
+                }
+
+                window.location.href = 'dashboard.html';
+            });
+
+            btnReport.addEventListener('click', () => {
+                window.location.href = `report.html?id=${projectId}`;
+            });
+        });
+
+
+        document.getElementById('createTask').addEventListener('click', async () => {
+            const dataTask = {
+                title: document.getElementById('titleTask').value,
+                description: document.getElementById('descTask').value,
+                email: document.getElementById('collaborator').value,
+                estimate_delivery: document.getElementById('delivery').value,
+                priority: document.getElementById('priority').value,
+            };
+
+            if (!containText(dataTask)) {
+                alert('Debes de llenar todos los campos de la tarea');
+                return;
+            }
+
+            let errores = validSize(
+                { nombre: "titulo", valor: dataTask.title },
+                { nombre: "descripcion", valor: dataTask.description },
+            );
+
+            if (errores.length > 0) {
+                alert(errores.join("\n"));
+                return;
+            }
+
+            if (!emailValid(dataTask.email)) {
+                alert("Ingresa un email valido por favor.");
+                return;
+            }
+
+            dataTask.project = projectId;
+            const response = await saveTask(dataTask);
+
+            if (response.code === null) {
+                alert("Ocurrió un error inesperado, por favor intentalo más tarde.");
+                return;
+            }
+
+            if (response.code !== 200) {
+                alert(response.message);
+                return;
+            }
+
+            if (response.code === 200) {
+                alert("Registro exitoso.");
+                window.location.href = "dashboard.html";
+            }
+        });
+
+    </script>
+</body>
+
+</html>

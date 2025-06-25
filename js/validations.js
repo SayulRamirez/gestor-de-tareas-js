@@ -11,6 +11,7 @@ function validSize(...campos) {
     let errores = [];
 
     campos.forEach(({ nombre, valor }) => {
+        console.log(valor)
         const limite = limit[nombre]; 
         if (!limite) return;
 

@@ -45,29 +45,36 @@
         window.location.href = "../index.html";
     }
 
+    const projects = document.getElementById('section-projects');
+
     getAllProjectsByUser().then( response => {
 
         response.data.forEach(project => {
             
             let template = templateProject.content.cloneNode(true);
+            let article = template.querySelector('.project');
 
-            template.querySelector('.project').setAttribute('data-status', project.status);
-            template.querySelector('.project').setAttribute('data-id', project.id);
+            article.setAttribute('data-status', project.status);
+            article.setAttribute('data-id', project.id);
 
-            let title = template.querySelector('.project-title');
-            let status = template.querySelector('.project-status');
+            let title = article.querySelector('.project-title');
+            let status = article.querySelector('.project-status');
 
             title.innerText = project.title;
             status.innerText = statusToSpanish(project.status);
 
-            document.getElementById('section-projects').appendChild(template);
+            article.addEventListener('click', (event) => {
+                window.location.href = `project.html?id=${article.getAttribute('data-id')}`;
+            });
+
+            projects.appendChild(article);
         });
     });
         
 </script>
 
 <template id="templateProject">
-    <article class="project" data-status="" data-id="">
+    <article class="project" data-status="" data-id="" style="cursor: pointer;">
         <div class="project-desc">
             <h2 class="project-title"></h2>
             <p class="project-status"></p>

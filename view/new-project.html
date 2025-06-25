@@ -16,6 +16,14 @@
     <script src="../js/service/project-service.js"></script>
 </head>
 <body>
+    <script>
+        if ( !isTokenValid() ) {
+        alert("El token ha expirado o es inválido.\nEs necesario volver a iniciar sesión.");
+        localStorage.removeItem("token");
+        window.location.href = "../index.html";
+    }
+
+    </script>
     <header>
         <nav class="topnav" id="myTopnav">
             <a href="dashboard.html" class="active">Home</a>

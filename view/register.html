@@ -10,9 +10,18 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/validations.js"></script>
     <script src="../js/service/auth-service.js"></script>
+    <script src="../js/jwt.js"></script>
 </head>
 
 <body>
+    <script>
+        if ( !isTokenValid() ) {
+        alert("El token ha expirado o es inválido.\nEs necesario volver a iniciar sesión.");
+        localStorage.removeItem("token");
+        window.location.href = "../index.html";
+    }
+
+    </script>
     <header class="header">
         <h1 class="header-title">Crear una cuenta nueva.</h1>
         <p class="header-link">¿Ya estas registrado? <a href="../index.html">Accede aquí.</a></p>
