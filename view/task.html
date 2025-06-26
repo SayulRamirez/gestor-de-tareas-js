@@ -4,26 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestor</title>
-    <link rel="stylesheet" href="../css/base/base.css">
-    <link rel="stylesheet" href="../css/base/menu.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <title>Tareas asignadas</title>
+    <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../js/menu.js"></script>
+    <script src="../js/axios.min.js"></script>
     <script src="../js/jwt.js"></script>
-    <script src="../js/language.js"></script>
+    <script src="../js/utils.js"></script>
     <script src="../js/service/task-service.js"></script>
 </head>
 
 <body>
     <script>
-        if ( !isTokenValid() ) {
-        alert("El token ha expirado o es inválido.\nEs necesario volver a iniciar sesión.");
-        localStorage.removeItem("token");
-        window.location.href = "../index.html";
-    }
-
+        if (!isTokenValid()) {
+            alert("El token ha expirado o es inválido.\nEs necesario volver a iniciar sesión.");
+            localStorage.removeItem("token");
+            window.location.href = "../index.html";
+        }
     </script>
     <style>
         .main {
@@ -34,7 +30,7 @@
             width: 100%;
             border-collapse: collapse;
             background-color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             border-radius: 0.5rem;
             overflow: hidden;
             font-size: var(--font-size-17);
@@ -47,7 +43,8 @@
             text-transform: uppercase;
         }
 
-        th, td {
+        th,
+        td {
             padding: 1.2rem;
             text-align: left;
             border-bottom: 1px solid var(--color-secundario);
@@ -101,21 +98,12 @@
             </thead>
             <tbody id="table"></tbody>
     </main>
-
     <script>
-        if ( !isTokenValid() ) {
-            alert("El token ha expirado o es inválido.\nEs necesario volver a iniciar sesión.");
-            localStorage.removeItem("token");
-            window.location.href = "../index.html";
-        }
-
         const statusT = ["PENDING", "IN_PROGRESS", "COMPLETE"]
-
         const visibleFields = ["title", "description", "estimate_delivery", "priority"];
-
         const table = document.getElementById('table');
 
-        getAllByUser().then( response => {
+        getAllByUser().then(response => {
 
             const tasks = response.data.map(task => {
                 return {
@@ -140,7 +128,7 @@
                 });
 
                 const select = document.createElement('select');
-                for(i = 0; i < 3; i++) {
+                for (i = 0; i < 3; i++) {
                     const option = document.createElement('option');
                     option.value = statusT[i];
                     option.textContent = statusToSpanish(statusT[i]);
@@ -151,7 +139,7 @@
                 const columnSelect = document.createElement('td');
                 columnSelect.appendChild(select);
                 row.appendChild(columnSelect);
-                
+
                 const icon = document.createElement('i');
                 icon.classList.add('fa', 'fa-pencil');
                 icon.setAttribute('data-id', task.id);
@@ -159,7 +147,7 @@
                 icon.addEventListener('click', async () => {
                     await updateTask(parseInt(icon.getAttribute('data-id')), select.value);
                 })
-                
+
                 const columnIcon = document.createElement('td');
                 columnIcon.appendChild(icon);
                 row.appendChild(columnIcon);

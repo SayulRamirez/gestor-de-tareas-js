@@ -1,9 +1,5 @@
 .main {
     height: calc(100vh - 43.2px);
-    /* background-image: url('../img/new-project.jpeg');
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: contain; */
     background-color: var(--color-secundario);
     display: flex;
     align-items: center;
