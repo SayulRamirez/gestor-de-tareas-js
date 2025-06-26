@@ -1,143 +1,99 @@
-const base = 'http://127.0.0.1:8080/api/v1/projects';
+const baseProjects = 'http://127.0.0.1:8080/api/v1/projects';
 
 async function getAllProjectsByUser() {
-
     const token = getToken();
-
     const id = getIdUser();
 
     try {
-
-        const response = await axios.get(`${base}/all/${id}`, {
+        const response = await axios.get(`${baseProjects}/all/${id}`, {
             headers: {
                 Authorization: 'Bearer ' + token,
             }
         });
 
-        return { code: response.status, data: response.data };
+        return await successResponse(response);
     } catch (error) {
-        if (error.response) {
-            return {
-                message: error.response.data.message,
-                code: error.response.status
-            }
-        }
-        return { message: "No se pudo establecer la conexión con el servidor", code: error };
+        return await errorResponse(error);
     }
 }
 
 async function save(project) {
     const token = getToken();
-
     project.leader = getIdUser();
 
     try {
-        const response = await axios.post(base, project, {
+        const response = await axios.post(baseProjects, project, {
             headers: {
                 Authorization: 'Bearer ' + token,
                 'Content-Type': 'application/json'
             }
         });
-        return { code: response.status, data: response.data };
+        return await successResponse(response);
     } catch (error) {
-        if (error) {
-            return { message: error.response.data.message, 
-                code: error.response.status,
-            };
-        }
-
+        return await errorResponse(error);
     }
-    return { message: "Error de conexión", code: null};
 }
 
 async function getProject(id) {
-
     const token = getToken();
 
     try {
-
-        const response = await axios.get(`${base}/${id}`, {
+        const response = await axios.get(`${baseProjects}/${id}`, {
             headers: {
                 Authorization: 'Bearer ' + token,
             }
         });
 
-        return { code: response.status, data: response.data };
+        return await successResponse(response);
     } catch (error) {
-        if (error.response) {
-            return {
-                message: error.response.data.message,
-                code: error.response.status
-            }
-        }
-        return { message: "No se pudo establecer la conexión con el servidor", code: error };
+        return await errorResponse(error);
     }
 }
 
-async function updateProyect(id, status) {
+async function updateProject(id, status) {
     const token = getToken();
 
     try {
-        const response = await axios.put(base, {id, status}, {
+        const response = await axios.put(baseProjects, {id, status}, {
             headers: {
                 Authorization: 'Bearer ' + token,
             }
         });
 
-        return { code: response.status, data: response.data };
+        return await successResponse(response);
     } catch(error) {
-        if (error.response) {
-            return {
-                message: error.response.data.message,
-                code: error.response.status,
-            }
-        }
-        return { message: "No se pudo establecer la conexión con el servidor", code: error };
+        return await errorResponse(error);
     }
 }
 
-async function deleteProyect(id) {
+async function deleteProject(id) {
     const token = getToken();
 
     try {
-        const response = await axios.delete(`${base}/${id}`, {
+        const response = await axios.delete(`${baseProjects}/${id}`, {
             headers: {
                 Authorization: 'Bearer ' + token,
             }
         });
 
-        return { code: response.status, data: response.data };
+        return await successResponse(response);
     } catch(error) {
-        if (error.response) {
-            return {
-                message: error.response.data.message,
-                code: error.response.status,
-            }
-        }
-        return { message: "No se pudo establecer la conexión con el servidor", code: error };
+        return await errorResponse(error);
     }
 }
 
 async function getReport(id) {
-
     const token = getToken();
 
     try {
-
-        const response = await axios.get(`${base}/report/${id}`, {
+        const response = await axios.get(`${baseProjects}/report/${id}`, {
             headers: {
                 Authorization: 'Bearer ' + token,
             }
         });
 
-        return { code: response.status, data: response.data };
+        return await successResponse(response);
     } catch (error) {
-        if (error.response) {
-            return {
-                message: error.response.data.message,
-                code: error.response.status
-            }
-        }
-        return { message: "No se pudo establecer la conexión con el servidor", code: error };
+        return await errorResponse(error);
     }
 }

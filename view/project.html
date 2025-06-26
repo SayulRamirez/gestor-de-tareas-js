@@ -12,6 +12,7 @@
     <script src="../js/utils.js"></script>
     <script src="../js/service/project-service.js"></script>
     <script src="../js/service/task-service.js"></script>
+    <script src="../js/responseHandler.js"></script>
 </head>
 
 <body>
@@ -217,7 +218,7 @@
             status.value = project.status;
 
             btnUpdate.addEventListener('click', async () => {
-                const response = await updateProyect(projectId, status.value);
+                const response = await updateProject(projectId, status.value);
 
                 if (!response || response.code !== 200) {
                     alert(response.message, ': ', response.code);
@@ -228,7 +229,7 @@
             });
 
             btnDelete.addEventListener('click', async () => {
-                const response = await deleteProyect(projectId);
+                const response = await deleteProject(projectId);
 
                 if (!response || response.code !== 404) {
                     alert(response.message, ': ', response.code);

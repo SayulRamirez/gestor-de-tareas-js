@@ -1,28 +1,19 @@
 const baseTask = 'http://127.0.0.1:8080/api/v1/tasks';
 
 async function getAllByUser() {
-
     const token = getToken();
-
     const id = getIdUser();
 
     try {
-
         const response = await axios.get(`${baseTask}/all/${id}`, {
             headers: {
                 Authorization: 'Bearer ' + token,
             }
         });
 
-        return { code: response.status, data: response.data };
+        return await successResponse(response);
     } catch (error) {
-        if (error.response) {
-            return {
-                message: error.response.data.message,
-                code: error.response.status
-            }
-        }
-        return { message: "No se pudo establecer la conexión con el servidor", code: error };
+        return await errorResponse(error);
     }
 }
 
@@ -36,15 +27,9 @@ async function updateTask(id, status) {
             }
         });
 
-        return { code: response.status, data: response.data };
+        return await successResponse(response);
     } catch(error) {
-        if (error.response) {
-            return {
-                message: error.response.data.message,
-                code: error.response.status,
-            }
-        }
-        return { message: "No se pudo establecer la conexión con el servidor", code: error };
+        return await errorResponse(error);
     }
 }
 
@@ -58,14 +43,8 @@ async function saveTask(task) {
             }
         });
 
-        return { code: response.status, data: response.data };
+        return await successResponse(response);
     } catch(error) {
-        if (error.response) {
-            return {
-                message: error.response.data.message,
-                code: error.response.status,
-            }
-        }
-        return { message: "No se pudo establecer la conexión con el servidor", code: error };
+        return await errorResponse(error);
     }
 }
